@@ -3,4 +3,4 @@ node_modules/
 *.log
 .env
 backups/
-screenshots/*.png
+
