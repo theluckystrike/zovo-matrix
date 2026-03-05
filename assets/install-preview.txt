@@ -1,0 +1,27 @@
+[*] Matrix Terminal Theme Installer v1.0
+[*] =====================================
+
+[+] Detected macOS (Darwin 25.3.0)
+[+] zsh found: zsh 5.9 (x86_64-apple-darwin25.0)
+[+] Homebrew found: /opt/homebrew/bin/brew
+
+[~] Checking dependencies...
+[+] git 2.44.0 .................. OK
+[+] curl 8.7.1 .................. OK
+[+] jq 1.7.1 ................... OK
+
+[~] Installing Matrix theme components...
+[+] Downloading color scheme .... done
+[+] Applying terminal profile ... done
+[+] Installing shell aliases .... done
+[+] Configuring prompt theme .... done
+[+] Setting up privacy shield ... done
+
+[~] Backing up existing config to ~/.zovo-matrix/backup/
+[+] Backup created .............. OK
+
+[+] Writing config to ~/.zovo-matrix/config.yml
+[+] Source added to ~/.zshrc
+
+[*] Installation complete!
+[*] Run 'source ~/.zshrc' or open a new terminal to activate.
