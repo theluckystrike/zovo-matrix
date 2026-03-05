@@ -1,0 +1,65 @@
+{
+  "manifest_version": 3,
+  "name": "Privacy Shield by Zovo",
+  "description": "Protect your privacy while coding. Blocks trackers, fingerprinting, and analytics on developer sites.",
+  "version": "1.0.0",
+  "homepage_url": "https://zovo.one",
+
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "storage",
+    "activeTab"
+  ],
+
+  "host_permissions": [
+    "*://www.google-analytics.com/*",
+    "*://google-analytics.com/*",
+    "*://www.googletagmanager.com/*",
+    "*://googletagmanager.com/*",
+    "*://connect.facebook.net/*",
+    "*://www.facebook.com/tr*",
+    "*://stats.g.doubleclick.net/*",
+    "*://ad.doubleclick.net/*",
+    "*://adservice.google.com/*",
+    "*://static.hotjar.com/*",
+    "*://script.hotjar.com/*",
+    "*://cdn.mxpnl.com/*",
+    "*://api.mixpanel.com/*",
+    "*://cdn.segment.com/*",
+    "*://api.segment.io/*",
+    "*://cdn.amplitude.com/*",
+    "*://api.amplitude.com/*",
+    "*://fpjs.io/*",
+    "*://api.fpjs.io/*"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "tracker_rules",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
+}
