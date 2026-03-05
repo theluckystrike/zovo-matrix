@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=300">
+  <link rel="stylesheet" href="popup.css">
+  <title>Privacy Shield by Zovo</title>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="shield-icon">&#x1F6E1;</div>
+      <h1 class="title">Privacy Shield</h1>
+      <p class="subtitle">by <strong>Zovo</strong></p>
+    </header>
+
+    <!-- Stats panel -->
+    <section class="stats">
+      <div class="stat-card">
+        <span class="stat-value" id="tab-count">0</span>
+        <span class="stat-label">blocked on this tab</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="session-count">0</span>
+        <span class="stat-label">blocked this session</span>
+      </div>
+    </section>
+
+    <!-- Toggle -->
+    <section class="toggle-section">
+      <span class="toggle-label" id="status-text">Protection Active</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="toggle" checked>
+        <span class="slider"></span>
+      </label>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <a href="https://zovo.one" target="_blank" rel="noopener noreferrer">
+        Powered by Zovo
+      </a>
+    </footer>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
