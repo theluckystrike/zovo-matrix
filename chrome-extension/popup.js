@@ -31,8 +31,8 @@ async function init() {
         { type: "getStats", tabId: tab.id },
         (response) => {
           if (response) {
-            tabCountEl.textContent = formatNumber(response.tabCount);
-            sessionCountEl.textContent = formatNumber(response.sessionTotal);
+            animateCount(tabCountEl, response.tabCount);
+            animateCount(sessionCountEl, response.sessionTotal);
           }
         }
       );
@@ -81,5 +81,32 @@ async function init() {
    */
   function formatNumber(n) {
     return Number(n).toLocaleString();
+  }
+
+  /**
+   * Animate a count from 0 to the target number.
+   * Completes in roughly 400ms with eased steps.
+   */
+  function animateCount(el, target) {
+    const num = Number(target) || 0;
+    if (num === 0) {
+      el.textContent = "0";
+      return;
+    }
+    const duration = 400;
+    const steps = Math.min(num, 30);
+    const stepTime = duration / steps;
+    let current = 0;
+    const increment = num / steps;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= num) {
+        clearInterval(timer);
+        el.textContent = formatNumber(num);
+      } else {
+        el.textContent = formatNumber(Math.floor(current));
+      }
+    }, stepTime);
   }
 }

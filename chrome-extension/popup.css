@@ -11,11 +11,55 @@
 body {
   width: 300px;
   min-height: 380px;
-  max-height: 400px;
+  max-height: 480px;
   background: #000;
   color: #00cc00;
   font-family: "Courier New", Courier, monospace;
   overflow: hidden;
+  position: relative;
+}
+
+/* ---- Matrix rain background ---- */
+body::before {
+  content: "0 1 0 1 1 0 0 1 0 1 1 1 0 0 1 0 1 0 1 1 0 0 1 0 1 0 0 1 1 0 1 0 1 1 0 0 1 0 0 1 1 0 1 0 1 0 0 1 1 0 1 1 0 0 1 0 1 0 1 1 0 0 1 0 1 0 0 1 1 0 1 0 1 1 0 0 1 0 0 1 1 0 1 0 1 0 0 1 1 0";
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 300%;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  color: rgba(0, 255, 0, 0.06);
+  word-wrap: break-word;
+  line-height: 1.6;
+  letter-spacing: 4px;
+  pointer-events: none;
+  z-index: 0;
+  animation: matrixRain 12s linear infinite;
+}
+
+@keyframes matrixRain {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(33.33%); }
+}
+
+/* ---- Scanline CRT overlay ---- */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
 }
 
 /* ---- Container ---- */
@@ -26,6 +70,12 @@ body {
   padding: 20px 16px 12px;
   gap: 18px;
   height: 100%;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(0, 204, 0, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0, 255, 0, 0.15), inset 0 0 12px rgba(0, 255, 0, 0.05);
+  margin: 4px;
 }
 
 /* ---- Header ---- */
@@ -45,7 +95,7 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #00ff00;
-  text-shadow: 0 0 6px #00ff00, 0 0 12px #00cc00;
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #00cc00;
 }
 
 .subtitle {
@@ -78,11 +128,18 @@ body {
 }
 
 .stat-value {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   color: #00ff00;
+  font-family: "Courier New", Courier, monospace;
   text-shadow: 0 0 8px #00ff00;
   line-height: 1;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { text-shadow: 0 0 8px #00ff00; }
+  50%      { text-shadow: 0 0 16px #00ff00, 0 0 30px #00cc00; }
 }
 
 .stat-label {
@@ -154,8 +211,8 @@ body {
 /* Checked state */
 .toggle-switch input:checked + .slider {
   background: #003300;
-  border-color: #00cc00;
-  box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+  border-color: #00ff00;
+  box-shadow: 0 0 12px rgba(0, 255, 0, 0.6), 0 0 24px rgba(0, 255, 0, 0.2);
 }
 
 .toggle-switch input:checked + .slider::before {
@@ -180,5 +237,48 @@ body {
 
 .footer a:hover {
   color: #00ff00;
-  text-shadow: 0 0 6px #00ff00;
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #00cc00, 0 0 30px #009900;
+}
+
+/* ---- Tagline ---- */
+.tagline {
+  font-size: 10px;
+  color: #006600;
+  letter-spacing: 1px;
+  margin-top: -2px;
+}
+
+/* ---- Blocked domains list ---- */
+.blocked-domains {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba(0, 204, 0, 0.3);
+  border-radius: 6px;
+  background: rgba(0, 204, 0, 0.03);
+}
+
+.blocked-domains-title {
+  font-size: 9px;
+  color: #009900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.blocked-domains ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.blocked-domains li {
+  font-size: 10px;
+  color: #00aa00;
+  padding: 2px 0;
+}
+
+.blocked-domains li::before {
+  content: "x ";
+  color: #ff3333;
+  font-weight: 700;
 }

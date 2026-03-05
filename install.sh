@@ -20,6 +20,45 @@ warn()    { printf "${YELLOW}[!]${RESET} %s\n" "$*"; }
 error()   { printf "${RED}[-]${RESET} %s\n" "$*"; }
 fatal()   { error "$*"; exit 1; }
 
+# ── Matrix Visual Effects ─────────────────────────────────
+MATRIX_CHARS="アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFZ"
+
+matrix_rain() {
+    local lines="${1:-2}"
+    local cols
+    cols=$(tput cols 2>/dev/null || echo 80)
+    printf "${GREEN}"
+    for ((l=0; l<lines; l++)); do
+        local line=""
+        for ((c=0; c<cols; c++)); do
+            if (( RANDOM % 3 == 0 )); then
+                local idx=$(( RANDOM % ${#MATRIX_CHARS} ))
+                line+="${MATRIX_CHARS:$idx:1}"
+            else
+                line+=" "
+            fi
+        done
+        printf "%s\n" "$line"
+        sleep 0.01
+    done
+    printf "${RESET}"
+}
+
+matrix_spinner() {
+    local msg="$1"
+    local duration="${2:-1}"
+    local spin_chars='|/-\\'
+    local end_time=$(( $(date +%s) + duration ))
+    printf "${GREEN}[*]${RESET} %s " "$msg"
+    while (( $(date +%s) < end_time )); do
+        for ((i=0; i<${#spin_chars}; i++)); do
+            printf "\b%s" "${spin_chars:$i:1}"
+            sleep 0.1
+        done
+    done
+    printf "\b \n"
+}
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 THEME_DIR="$SCRIPT_DIR/theme"
 BACKUP_DIR="$HOME/.zovo-matrix-backup"
@@ -27,12 +66,12 @@ MARKER="# Matrix Theme"
 
 # ── Uninstall ────────────────────────────────────────────────
 do_uninstall() {
-    info "Running zovo-matrix uninstaller..."
+    info "Disconnecting from the Matrix..."
     echo ""
 
     # Remove Matrix Theme block from .zshrc
     if grep -q "$MARKER" "$HOME/.zshrc" 2>/dev/null; then
-        info "Removing Matrix Theme block from .zshrc..."
+        info "Restoring simulation in .zshrc..."
         # Delete from the "===...===" line before "# Matrix Theme" to end of file
         sed -i '' '/^# =\+$/,/^# =\+$/{
             /# Matrix Theme/,$ d
@@ -54,7 +93,7 @@ do_uninstall() {
 
     # Restore backed-up files
     if [[ -d "$BACKUP_DIR" ]]; then
-        info "Restoring backed-up files..."
+        info "Restoring simulation..."
         for backup_file in "$BACKUP_DIR"/*; do
             [[ -f "$backup_file" ]] || continue
             local base
@@ -90,7 +129,7 @@ do_uninstall() {
     fi
 
     echo ""
-    success "zovo-matrix has been uninstalled."
+    success "You have taken the blue pill. Goodbye."
     info "Restart your terminal for changes to take effect."
     exit 0
 }
@@ -101,6 +140,7 @@ if [[ "${1:-}" == "--uninstall" ]]; then
 fi
 
 # ── Banner ───────────────────────────────────────────────────
+matrix_rain 3
 echo ""
 printf "${BGREEN}"
 cat << 'BANNER'
@@ -115,6 +155,7 @@ printf "${RESET}"
 echo ""
 info "Matrix Terminal Theme Installer"
 echo ""
+matrix_spinner "Connecting to the Matrix..." 1
 
 # ── OS Detection ─────────────────────────────────────────────
 OS="$(uname -s)"
@@ -130,7 +171,7 @@ else
 fi
 
 # ── Dependency Checks ────────────────────────────────────────
-info "Checking dependencies..."
+info "Initiating connection..."
 
 # zsh
 if command -v zsh &>/dev/null; then
@@ -171,7 +212,7 @@ echo ""
 # ── Install Brew Packages ────────────────────────────────────
 BREW_PACKAGES=(cmatrix fastfetch zsh-syntax-highlighting zsh-autosuggestions tree)
 
-info "Installing brew packages..."
+info "Downloading construct..."
 for pkg in "${BREW_PACKAGES[@]}"; do
     if brew list "$pkg" &>/dev/null; then
         success "$pkg already installed"
@@ -208,7 +249,7 @@ backup_if_exists "$HOME/.config/fastfetch/config.jsonc" "fastfetch-config.jsonc"
 echo ""
 
 # ── Copy Theme Files ─────────────────────────────────────────
-info "Installing theme files..."
+info "Loading the construct..."
 
 # p10k-matrix.zsh
 cp "$THEME_DIR/p10k-matrix.zsh" "$HOME/.p10k-matrix.zsh"
@@ -227,7 +268,7 @@ success "Installed ~/.config/fastfetch/config.jsonc"
 echo ""
 
 # ── Patch .zshrc ─────────────────────────────────────────────
-info "Configuring .zshrc..."
+info "Rewriting reality..."
 
 if grep -q "$MARKER" "$HOME/.zshrc" 2>/dev/null; then
     success "Matrix Theme block already present in .zshrc -- skipping"
@@ -246,7 +287,7 @@ echo ""
 
 # ── Terminal.app Colors (macOS only) ─────────────────────────
 if [[ "$OS" == "Darwin" ]]; then
-    info "Setting Terminal.app colors (black bg, green text)..."
+    info "Jacking into Terminal.app..."
     osascript -e '
     tell application "Terminal"
         set bgColor to {0, 0, 0}
@@ -269,6 +310,8 @@ fi
 echo ""
 
 # ── Success Message ──────────────────────────────────────────
+matrix_rain 2
+echo ""
 printf "${DGREEN}"
 cat << 'EOF'
   ┌──────────────────────────────────────────────────────┐
@@ -277,7 +320,7 @@ cat << 'EOF'
   │                                                      │
   │   "The Matrix is everywhere. It is all around us."   │
   │                                                      │
-  │   Restart your terminal to enter the Matrix.         │
+  │   You are now in The Matrix.                         │
   │                                                      │
   │   Commands:                                          │
   │     matrix       - Launch cmatrix screensaver        │
