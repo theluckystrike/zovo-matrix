@@ -1,0 +1,13 @@
+{
+  "name": "zovo-matrix",
+  "version": "1.0.0",
+  "description": "Matrix terminal theme for macOS/zsh with Privacy Shield Chrome extension",
+  "author": "Zovo <hello@zovo.one> (https://zovo.one)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/zovo-matrix.git"
+  },
+  "homepage": "https://zovo.one",
+  "keywords": ["matrix", "terminal", "theme", "zsh", "macos", "privacy", "chrome-extension"]
+}
