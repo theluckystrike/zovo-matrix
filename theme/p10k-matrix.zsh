@@ -1,3 +1,4 @@
+# "The Matrix is a system, Neo."
 # Matrix-style Powerlevel10k config — black bg, green text
 'builtin' 'local' -a __p9k_src_params
 __p9k_src_params=("${@}")
@@ -57,6 +58,7 @@ typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=clear
 typeset -g POWERLEVEL9K_TIME_BACKGROUND=clear
 typeset -g POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=clear
 
+# "You have to let it all go."
 # Prompt character — green ">" for that classic terminal hacker look
 typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=040
 typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=196
@@ -89,3 +91,5 @@ typeset -g POWERLEVEL9K_BACKGROUND_JOBS_ICON='\uF013'
 # Transient prompt — minimal green ">"
 typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=same-dir
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
+
+# "There is no spoon."

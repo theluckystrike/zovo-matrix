@@ -20,6 +20,18 @@ warn()    { printf "${YELLOW}[!]${RESET} %s\n" "$*"; }
 error()   { printf "${RED}[-]${RESET} %s\n" "$*"; }
 fatal()   { error "$*"; exit 1; }
 
+matrix_quote() {
+  local q=(
+    "There is no spoon."
+    "Follow the white rabbit."
+    "The Matrix has you..."
+    "Free your mind."
+    "I know kung fu."
+    "Whoa."
+  )
+  printf "${DGREEN}  \"%s\"${RESET}\n" "${q[$((RANDOM % ${#q[@]}))]}"
+}
+
 # ── Matrix Visual Effects ─────────────────────────────────
 MATRIX_CHARS="アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFZ"
 
@@ -207,6 +219,7 @@ if [[ "$P10K_FOUND" == false ]]; then
     fatal "Powerlevel10k is required but not found. Install via: brew install powerlevel10k"
 fi
 
+matrix_quote
 echo ""
 
 # ── Install Brew Packages ────────────────────────────────────
@@ -226,6 +239,7 @@ for pkg in "${BREW_PACKAGES[@]}"; do
     fi
 done
 
+matrix_quote
 echo ""
 
 # ── Backup Existing Files ────────────────────────────────────
@@ -265,6 +279,7 @@ mkdir -p "$HOME/.config/fastfetch"
 cp "$THEME_DIR/fastfetch-config.jsonc" "$HOME/.config/fastfetch/config.jsonc"
 success "Installed ~/.config/fastfetch/config.jsonc"
 
+matrix_quote
 echo ""
 
 # ── Patch .zshrc ─────────────────────────────────────────────
@@ -283,6 +298,7 @@ else
     success "Added Matrix Theme block to .zshrc"
 fi
 
+matrix_quote
 echo ""
 
 # ── Terminal.app Colors (macOS only) ─────────────────────────

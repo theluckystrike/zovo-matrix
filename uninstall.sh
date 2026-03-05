@@ -99,6 +99,7 @@ if [[ -d "$BACKUP_DIR" ]]; then
 
     rm -rf "$BACKUP_DIR"
     success "Removed backup directory"
+    printf "${DGREEN}  \"Free your mind.\"${RESET}\n"
 else
     info "No backup directory found -- skipping restore"
 fi
